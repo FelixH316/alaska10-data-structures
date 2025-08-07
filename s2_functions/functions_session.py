@@ -112,7 +112,7 @@ Cuando utilizamos funciones, necesitamos prestar atención a una
     ejecución de una función, la variable no estará disponible para el
     usuario en el resto del código
 """
-print(calculo) # Error
+# print(calculo) # Error
 
 
 """
@@ -216,8 +216,8 @@ Necesitamos exhibir un pequeño texto para poder indicar el promedio del
     estudiante
 """
 n1 = float(input("Digite la primera nota: "))
-n2 = float(input("Digite la primera nota: "))
-n3 = float(input("Digite la primera nota: "))
+n2 = float(input("Digite la segunda nota: "))
+n3 = float(input("Digite la tercera nota: "))
 ponderado = lambda x, y, z : (x * 3 + y * 2 + z * 5) / 10
 
 nota_final = ponderado(n1, n2, n3)
@@ -248,7 +248,7 @@ cualitativo = 0.5
 notas_actualizadas = lambda x: x + 0.5
 
 # Error, para un iterable tenemos que mapear los valores
-notas_actualizadas(notas)
+# notas_actualizadas(notas)
 
 
 """
@@ -348,12 +348,12 @@ El Docstring debe describir el propósito, los parámetros, el tipo de
     código con otros desarrolladores
 
 Formato:
-"""
 def <nombre>(<param_1>, <param_2>, ..., <param_n>):
     '''Texto documentando su función...
     '''
     <instrucciones>
     return resultado
+"""
 
 # Concluyendo la implementación de nuestra función media(), podemos
 #   usar el Docstring de la siguiente manera:
