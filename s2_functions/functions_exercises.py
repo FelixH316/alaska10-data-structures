@@ -22,8 +22,8 @@ lista = [16, 14, 63, 65, 17, 99, 70, 11, 20, 48, 79, 32, 17, 89, 12, 25, 66]
 
 lenght = len(lista)
 lista.sort()
-small = lista[0]
-big = lista[-1]
+small = lista[0]    # small = min(lista)
+big = lista[-1]     # big = max(lista)
 total = sum(lista)
 print(f"The list has [{lenght}] numbers, where the greatest is [{big}] \n\
         and the smallest is [{small}]. The sum of all its values is \
@@ -64,7 +64,7 @@ multiplication_table(8)
 
 [97, 80, 94, 88, 80, 1, 16, 53, 62, 32, 24, 99]
 """
-lista = [97, 80, 94, 88, 80, 1, 16, 53, 62, 32, 24, 99]
+lista = [97, 80, 94, 88, 80, 1, 16, 53, 62, 32, 24, 99, 3]
 def list_multiplier(lista: list, multiplier: float) -> list:
     """
         Multiplies all elements in the list by a specified number
@@ -85,6 +85,23 @@ def list_multiplier(lista: list, multiplier: float) -> list:
 listax3 = list_multiplier(lista, 3)
 print(lista)
 print(listax3)
+
+# Corrected
+def mcm_filter(lista: list, mcm: int) -> list:
+    """
+        Filter just the numbers that are a multiplier of the given number
+
+        Params:
+            @list lista
+            @int mcm (minimum common multiplier)
+
+        Return:
+            @list new_list
+    """
+    return [num for num in lista if num % mcm == 0]
+
+filter_3 = mcm_filter(lista, 3)
+print(f"Multipliers of 3: {filter_3}")
 
 
 """
@@ -111,7 +128,10 @@ print(f"Squared numbers: {cuadrados}")
     recibir 5 notas ingresadas por los jueces
 """
 # TODO
-
+notas = [float(input(f"Ingrese la nota {i + 1}: ")) for i in range(5)]
+notas.sort()
+media = sum(notas[1:4]) / 3
+print(f"Nota de la maniobra: {media:.2f}")
 
 """
 06 - Para cumplir con una demanda de una institución educativa para el
@@ -129,6 +149,18 @@ Uso de la función
         `situacion`
 """
 # TODO
+def analisis_notas(notas):
+    mayor = max(notas)
+    menor = min(notas)
+    media = sum(notas) / len(notas)
+    situacion = "Aprobado" if media >= 6 else "Reprobado"
+    return mayor, menor, media, situacion
+
+# Uso de la función
+notas_estudiante = [float(input(f"Ingrese la nota {i + 1}: ")) for i in range(4)]
+resultado = analisis_notas(notas_estudiante)
+print(f"El estudiante obtuvo una media de {resultado[2]:.2f}, con la mayor nota de {resultado[0]:.2f} puntos y la menor nota de {resultado[1]:.2f} puntos y fue {resultado[3]}")
+
 
 """
 07 - Has recibido una demanda para tratar 2 listas con los nombres y
@@ -156,6 +188,16 @@ print(apellidos)
 
 full_name = list(map(lambda_merge, nombres, apellidos))
 print(full_name)
+
+# FROM INSTRUCTOR
+nombres = ["juan", "MaRia", "JOSÉ"]
+sobrenombres = ["SILVA", "sosa", "Tavares"]
+
+# Normalizar nombres y apellidos y crear una nueva lista con los nombres completos
+nombres_normalizados = map(lambda x: x.capitalize(), nombres)
+sobrenombres_normalizados = map(lambda x: x.capitalize(), sobrenombres)
+nombres_completos = list(map(lambda x, y: f"Nome completo: {x} {y}", nombres_normalizados, sobrenombres_normalizados))
+print(nombres_completos)
 
 
 """
@@ -198,7 +240,8 @@ def calcula_puntos (goals_scored: list, goals_received: list):
             @list goals_received
 
         Return:
-            @list [points, performance]
+            @int points
+            @float performance
     """
     points = 0
     for i, match_scrd in enumerate(goals_scored):
@@ -208,14 +251,14 @@ def calcula_puntos (goals_scored: list, goals_received: list):
             points += 1
     max_points = len(goals_scored) * 3
     performance = points * 100 / max_points
-    return [points, performance]
+    return points, performance
 
 
 goles_marcados = [2, 1, 3, 1, 0]
 goles_recibidos = [1, 2, 2, 1, 3]
-season_results = calcula_puntos(goles_marcados, goles_recibidos)
-print(f"\nThis season the team had [{season_results[0]}] points \n\
-        \rwith a performance of [{season_results[1]:.2f}%]")
+team_points, team_perf = calcula_puntos(goles_marcados, goles_recibidos)
+print(f"\nThis season the team had [{team_points}] points \n\
+        \rwith a performance of [{team_perf:.2f}%]")
 
 
 """
@@ -243,6 +286,38 @@ Texto probablemente mostrado:
     [ciudad] desde Recife costaría [gastos] reales
 """
 # TODO
+dias = int(input("¿Cuántas diarias? "))
+ciudad = input("¿Cuál es la ciudad? [Salvador, Fortaleza, Natal o Aracaju]: ")
+distancias = [850, 800, 300, 550]
+paseo = [200, 400, 250, 300]
+km_l = 14
+gasolina = 5
+
+def gasto_hotel(dias):
+    return 150 * dias
+
+def gasto_gasolina(ciudad):
+    if ciudad == "Salvador":
+        return (2 * distancias[0] * gasolina) / km_l 
+    elif ciudad == "Fortaleza":
+        return (2 * distancias[1] * gasolina) / km_l 
+    elif ciudad == "Natal":
+        return (2 * distancias[2] * gasolina) / km_l 
+    elif ciudad == "Aracaju":
+        return (2 * distancias[3] * gasolina) / km_l 
+
+def gasto_paseo(ciudad, dias):
+    if ciudad=="Salvador":
+        return paseo[0] * dias
+    elif ciudad=="Fortaleza":
+        return paseo[1] * dias
+    elif ciudad=="Natal":
+        return paseo[2] * dias 
+    elif ciudad=="Aracaju":
+        return paseo[3] * dias 
+
+gastos = gasto_hotel(dias) + gasto_gasolina(ciudad) + gasto_paseo(ciudad, dias)
+print(f"Con base en los gastos definidos, un viaje de {dias} días a {ciudad} desde Recife costaría {round(gastos, 2)} reales")
 
 
 """
@@ -264,9 +339,9 @@ Consejo: utiliza las funciones lambda y filter() para filtrar estas
 Utiliza la frase "Aprender Python aquí en Alura es muy bueno" para
     probar el código
 """
-frase = "Aprender Python aquí en Alura es muy bueno"
-lista = frase.split()
-
-lambada_size = lambda word : len(word) >= 5
-filter_words = list(filter(lambada_size, lista))
+frase = "¡Aprender Python aquí en Alura, es muy bueno!, vrd?"
+frase = frase.replace(',',' ').replace('.',' ').replace('!',' ').replace('?',' ').replace('¡',' ').split()
+print(frase)
+lambada_size = lambda palabra : len(palabra) >= 5
+filter_words = list(filter(lambada_size, frase))
 print(filter_words)
